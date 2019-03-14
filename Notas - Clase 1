@@ -1,0 +1,96 @@
+Ejercicio "resuelto", puntos A,B C y D
+
+//PROTOTIPOS
+void ponerCeroMatriz(float mat[5][31], int fila, int columna);
+void CargarDatos(float matImportes[5][31] ;
+void BuscarPosicion(char *posicion) 
+void puntoA(matImportes);
+void puntoB(matImportes);
+void puntoC(matImportes);
+
+Int main() {
+	float matImportes[5][31];
+	ponerCeroMatriz(mat, 5, 31);
+	cargarDatos(matImportes);
+	puntoA(matImportes);
+	puntoB(matImportes);
+	puntoC(matImportes);
+	Return 0;
+}
+
+void ponerCeroMatriz(float mat[5][31], int fila, int columna) ;{
+	int i, j;
+	for (i = 0; i < fila; i++)
+	{
+		for (j = 0; j < columna; j++)
+			matimportes[i][j] = 0;
+	}
+	void CargarDatos(float matImportes[5][31])
+	{
+		int dia, posicion, maxsuc;
+		maxsuc=0;
+		float importe;
+		char sucursal[9];
+		char sucu[9][5];
+		Cout << "sucursal:" ;
+		Cin >> sucursal;
+		Cout << "Importe:";
+		Cin >> importe;
+		fila = BuscarPosicion(sucursal);
+		matImportes[fila][dia - 1] += importe;
+		Cout << "DIA:";
+		cin >> dia;
+	} 
+} 
+Int buscarPosicion(char *sucursal) {
+	If(strcmp(sucursal, "PACHECO") == 0) return 0;
+	If(strcmp(sucursal, "TIGRE") == 0) return 1;
+	If(strcmp(sucursal, "TORCUATO") == 0) return 2;
+	If(strcmp(sucursal, "TALAR") == 0) return 3;
+	If(strcmp(sucursal, "RINCON") == 0) return 4;
+} 
+
+void puntoA(matImportes[5] [31] ){
+	int i, j;
+	for (i = 0; i < fila; i++)
+	{
+		for (j = 0; j < columna; j++)
+		{
+			cout<<"DIA:"<<j-1<<" IMPORTE: "<<mat[i][j];
+		}
+		cout<<" ";
+	}
+}
+
+int sumasem(matimportes[5][31],maximport,maxsuc);
+{
+	float sumimport;
+	for(k=0;k<7;k++)
+	{
+		sumimport += matimportes[suc][k];
+	};
+	if (sumimport>=maximport) maximport=sumimport;
+	maxsuc=k;
+} return k;
+
+Int puntoB(matImportes[5] [31]) ;
+{
+	int k,y,maxsuc,maximport;
+	for(k=0;k<5;k++){	maxsuc=sumasem(matimportes[5][31],maximport maxsuc);
+	}
+	cout<<mostrarsuc(maxsuc);
+};
+
+int puntoC(matImportes[5] [31] );
+{
+	int cont=0;
+		int i, j;
+	for (i = 0; i < fila; i++)
+	{
+		for (j = 0; j < columna; j++)
+			if(matimportes[i][j]<12000)
+			{
+				cont++;
+			}
+	}
+} return cont;
