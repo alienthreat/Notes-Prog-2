@@ -37,7 +37,7 @@ int BuscarPosicion(char *posicion);
 void puntoA(float matImportes[5][31],int fila, int columna); //Indico tipo de dato a recibir y dimensión
 void puntoB(float matImportes[5][31],int fila, int columna); //por cada vez que realizo un prototipo
 void puntoC(float matImportes[5][31],int fila, int columna); //de funcion o cuando la crea
-int sumasem(float matImportes[5][31], int maximport, int maxsuc);
+int sumaSem(float matImportes[5][31], int maximport, int maxsuc, int suc);
 
 int main() {
 	float matImportes[5][31];
@@ -82,6 +82,14 @@ int buscarPosicion(char *sucursal) {
 	if(strcmp(sucursal, "RINCON") == 0) return 4;
 }
 
+int mostrarSuc(char *sucursal) {
+	if(strcmp(sucursal, "PACHECO") == 0) return 0;
+	if(strcmp(sucursal, "TIGRE") == 0) return 1;
+	if(strcmp(sucursal, "TORCUATO") == 0) return 2;
+	if(strcmp(sucursal, "TALAR") == 0) return 3;
+	if(strcmp(sucursal, "RINCON") == 0) return 4;
+}
+
 //Importe recaudado en cada día en cada sucursal
 void puntoA(float matImportes[5][31], int fila, int columna){
 	int i, j;
@@ -95,7 +103,19 @@ void puntoA(float matImportes[5][31], int fila, int columna){
 	}
 }
 
-int sumasem(matImportes[5][31],int maximport, int maxsuc);
+void puntoB(float matImportes[5][31],int fila, int columna)
+{
+	int k,y,maxsuc,maximport;
+	for(k=0;k<5;k++)
+    {
+            maxsuc=sumaSem(matImportes, maximport, maxsuc, k);
+	}
+	cout<<mostrarSuc(maxsuc); //Falta función que muestre
+
+
+}
+
+int sumaSem(float matImportes[5][31],int maximport, int maxsuc, int suc)
 {
 	float sumimport;
 	for(k=0;k<7;k++)
@@ -103,18 +123,11 @@ int sumasem(matImportes[5][31],int maximport, int maxsuc);
 		sumimport += matimportes[suc][k];
 	};
 	if (sumimport>=maximport) maximport=sumimport;
-	maxsuc=k;
-} return k;
+	maxsuc=suc;
+return suc;
+}
 
-int puntoB(matImportes[5] [31]) ;
-{
-	int k,y,maxsuc,maximport;
-	for(k=0;k<5;k++){	maxsuc=sumasem(matimportes[5][31],maximport maxsuc);
-	}
-	cout<<mostrarsuc(maxsuc);
-};
-
-int puntoC(matImportes[5] [31] );
+int puntoC(float matImportes[5][31]);
 {
 	int cont=0;
 		int i, j;
