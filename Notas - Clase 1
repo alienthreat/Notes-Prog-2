@@ -32,7 +32,7 @@ d)Finalizar la carga de datos mediante día de venta =0;
 
 //PROTOTIPOS
 void ponerCeroMatriz(float matImportes[5][31], int fila, int columna);
-void CargarDatos(float matImportes[5][31]) ;
+int CargarDatos(float matImportes[5][31]) ;
 int BuscarPosicion(char *posicion);
 void puntoA(float matImportes[5][31],int fila, int columna); //Indico tipo de dato a recibir y dimensión
 void puntoB(float matImportes[5][31],int fila, int columna); //por cada vez que realizo un prototipo
@@ -43,7 +43,12 @@ void mostrarSuc(int maxsuc);
 int main() {
 	float matImportes[5][31];
 	ponerCeroMatriz(matImportes, 5, 31);
-	CargarDatos(matImportes);
+	int salir;
+	while(salir!=0)
+    {
+    system("cls");
+	salir = CargarDatos(matImportes);
+    }
 	puntoA(matImportes, 5, 31);
 	puntoB(matImportes, 5, 31);
 	puntoC(matImportes, 5, 31);
@@ -58,7 +63,7 @@ void ponerCeroMatriz(float matImportes[5][31], int fila, int columna)
 		for (j = 0; j < columna; j++)
 			matImportes[i][j] = 0;
 }
-	void CargarDatos(float matImportes[5][31])
+	int CargarDatos(float matImportes[5][31])
 	{
 		int dia, fila;
 		float importe;
@@ -67,10 +72,11 @@ void ponerCeroMatriz(float matImportes[5][31], int fila, int columna)
 		cin >> sucursal;
 		cout << "Importe:";
 		cin >> importe;
-		fila = BuscarPosicion(sucursal);
-		matImportes[fila][dia - 1] += importe;
 		cout << "DIA:";
 		cin >> dia;
+		fila = BuscarPosicion(sucursal);
+		matImportes[fila][dia - 1] += importe;
+		return dia;
 	}
 
 int BuscarPosicion(char *sucursal) {
