@@ -1,68 +1,101 @@
-Ejercicio "resuelto", puntos A,B C y D
+#ifndef _WIN32
+# define _WIN32
+#endif
+#include <iostream>
+#include <cstdlib>
+#include "CSYSTEM/csystem.h" // Libreria para multiplataforma.
+using namespace std;
+
+/*
+Un comercio desea realizar una esadística sobre las ventas en sus
+5 sucursales durante el mes de enero.
+Cada venta está registrada econ los siguientes datos:
+_Sucursal (Pacheco", "Tigre", "Torcuato", "Talar, "Rincón").
+_Día(int)
+_Importe(float)
+Mostrar:
+a)Importe recaudado cada día en cada sucursal.
+b)La sucursal que más recaudó la primer semana.
+c)La cantidad de días con ventas menores a $12000 entre
+todas las sucursales.
+d)Finalizar la carga de datos mediante día de venta =0;
+*/
+
+
+
+
+
+
+
+
+
 
 //PROTOTIPOS
-void ponerCeroMatriz(float mat[5][31], int fila, int columna);
-void CargarDatos(float matImportes[5][31] ;
-void BuscarPosicion(char *posicion) 
-void puntoA(matImportes);
-void puntoB(matImportes);
-void puntoC(matImportes);
+void ponerCeroMatriz(float matImportes[5][31], int fila, int columna);
+void CargarDatos(float matImportes[5][31]) ;
+int BuscarPosicion(char *posicion);
+void puntoA(float matImportes[5][31],int fila, int columna); //Indico tipo de dato a recibir y dimensión
+void puntoB(float matImportes[5][31],int fila, int columna); //por cada vez que realizo un prototipo
+void puntoC(float matImportes[5][31],int fila, int columna); //de funcion o cuando la crea
+int sumasem(float matImportes[5][31], int maximport, int maxsuc);
 
-Int main() {
+int main() {
 	float matImportes[5][31];
-	ponerCeroMatriz(mat, 5, 31);
-	cargarDatos(matImportes);
-	puntoA(matImportes);
-	puntoB(matImportes);
-	puntoC(matImportes);
-	Return 0;
+	ponerCeroMatriz(matImportes, 5, 31);
+	CargarDatos(matImportes);
+	puntoA(matImportes, 5, 31);
+	int puntoB(matImportes[5][31]);
+	int puntoC(matImportes[5][31]);
+	return 0;
 }
 
-void ponerCeroMatriz(float mat[5][31], int fila, int columna) ;{
+//Al usar la función solo paso los parámetros
+void ponerCeroMatriz(float matImportes[5][31], int fila, int columna)
+{
 	int i, j;
 	for (i = 0; i < fila; i++)
-	{
 		for (j = 0; j < columna; j++)
-			matimportes[i][j] = 0;
-	}
+			matImportes[i][j] = 0;
+}
 	void CargarDatos(float matImportes[5][31])
 	{
-		int dia, posicion, maxsuc;
+		int dia, posicion, maxsuc, fila;
 		maxsuc=0;
 		float importe;
 		char sucursal[9];
 		char sucu[9][5];
-		Cout << "sucursal:" ;
-		Cin >> sucursal;
-		Cout << "Importe:";
-		Cin >> importe;
+		cout << "sucursal:" ;
+		cin >> sucursal;
+		cout << "Importe:";
+		cin >> importe;
 		fila = BuscarPosicion(sucursal);
 		matImportes[fila][dia - 1] += importe;
-		Cout << "DIA:";
+		cout << "DIA:";
 		cin >> dia;
-	} 
-} 
-Int buscarPosicion(char *sucursal) {
-	If(strcmp(sucursal, "PACHECO") == 0) return 0;
-	If(strcmp(sucursal, "TIGRE") == 0) return 1;
-	If(strcmp(sucursal, "TORCUATO") == 0) return 2;
-	If(strcmp(sucursal, "TALAR") == 0) return 3;
-	If(strcmp(sucursal, "RINCON") == 0) return 4;
-} 
+	}
 
-void puntoA(matImportes[5] [31] ){
+int buscarPosicion(char *sucursal) {
+	if(strcmp(sucursal, "PACHECO") == 0) return 0;
+	if(strcmp(sucursal, "TIGRE") == 0) return 1;
+	if(strcmp(sucursal, "TORCUATO") == 0) return 2;
+	if(strcmp(sucursal, "TALAR") == 0) return 3;
+	if(strcmp(sucursal, "RINCON") == 0) return 4;
+}
+
+//Importe recaudado en cada día en cada sucursal
+void puntoA(float matImportes[5][31], int fila, int columna){
 	int i, j;
 	for (i = 0; i < fila; i++)
 	{
 		for (j = 0; j < columna; j++)
 		{
-			cout<<"DIA:"<<j-1<<" IMPORTE: "<<mat[i][j];
+			cout<<"DIA:"<<j+1<<" IMPORTE: "<<matImportes[i][j];
 		}
 		cout<<" ";
 	}
 }
 
-int sumasem(matimportes[5][31],maximport,maxsuc);
+int sumasem(matImportes[5][31],int maximport, int maxsuc);
 {
 	float sumimport;
 	for(k=0;k<7;k++)
@@ -73,7 +106,7 @@ int sumasem(matimportes[5][31],maximport,maxsuc);
 	maxsuc=k;
 } return k;
 
-Int puntoB(matImportes[5] [31]) ;
+int puntoB(matImportes[5] [31]) ;
 {
 	int k,y,maxsuc,maximport;
 	for(k=0;k<5;k++){	maxsuc=sumasem(matimportes[5][31],maximport maxsuc);
@@ -93,4 +126,5 @@ int puntoC(matImportes[5] [31] );
 				cont++;
 			}
 	}
-} return cont;
+ return cont;
+}
