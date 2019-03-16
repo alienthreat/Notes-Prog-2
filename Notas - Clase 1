@@ -36,16 +36,17 @@ void CargarDatos(float matImportes[5][31]) ;
 int BuscarPosicion(char *posicion);
 void puntoA(float matImportes[5][31],int fila, int columna); //Indico tipo de dato a recibir y dimensión
 void puntoB(float matImportes[5][31],int fila, int columna); //por cada vez que realizo un prototipo
-void puntoC(float matImportes[5][31],int fila, int columna); //de funcion o cuando la crea
+int puntoC(float matImportes[5][31],int fila, int columna); //de funcion o cuando la crea
 int sumaSem(float matImportes[5][31], int maximport, int maxsuc, int suc);
+void mostrarSuc(int maxsuc);
 
 int main() {
 	float matImportes[5][31];
 	ponerCeroMatriz(matImportes, 5, 31);
 	CargarDatos(matImportes);
 	puntoA(matImportes, 5, 31);
-	int puntoB(matImportes[5][31]);
-	int puntoC(matImportes[5][31]);
+	puntoB(matImportes, 5, 31);
+	puntoC(matImportes, 5, 31);
 	return 0;
 }
 
@@ -59,11 +60,9 @@ void ponerCeroMatriz(float matImportes[5][31], int fila, int columna)
 }
 	void CargarDatos(float matImportes[5][31])
 	{
-		int dia, posicion, maxsuc, fila;
-		maxsuc=0;
+		int dia, fila;
 		float importe;
 		char sucursal[9];
-		char sucu[9][5];
 		cout << "sucursal:" ;
 		cin >> sucursal;
 		cout << "Importe:";
@@ -74,7 +73,7 @@ void ponerCeroMatriz(float matImportes[5][31], int fila, int columna)
 		cin >> dia;
 	}
 
-int buscarPosicion(char *sucursal) {
+int BuscarPosicion(char *sucursal) {
 	if(strcmp(sucursal, "PACHECO") == 0) return 0;
 	if(strcmp(sucursal, "TIGRE") == 0) return 1;
 	if(strcmp(sucursal, "TORCUATO") == 0) return 2;
@@ -82,12 +81,30 @@ int buscarPosicion(char *sucursal) {
 	if(strcmp(sucursal, "RINCON") == 0) return 4;
 }
 
-int mostrarSuc(char *sucursal) {
-	if(strcmp(sucursal, "PACHECO") == 0) return 0;
-	if(strcmp(sucursal, "TIGRE") == 0) return 1;
-	if(strcmp(sucursal, "TORCUATO") == 0) return 2;
-	if(strcmp(sucursal, "TALAR") == 0) return 3;
-	if(strcmp(sucursal, "RINCON") == 0) return 4;
+void mostrarSuc(int maxsuc) {
+    switch(maxsuc)
+    {
+    case 0:
+        {
+        cout<<"PACHECO";
+        }break;
+    case 1:
+        {
+        cout<<"TIGRE";
+        }break;
+    case 2:
+        {
+        cout<<"TORCUATO";
+        }break;
+    case 3:
+        {
+        cout<<"TALAR";
+        }break;
+    case 4:
+        {
+        cout<<"RINCON";
+        }break;
+    }
 }
 
 //Importe recaudado en cada día en cada sucursal
@@ -105,36 +122,34 @@ void puntoA(float matImportes[5][31], int fila, int columna){
 
 void puntoB(float matImportes[5][31],int fila, int columna)
 {
-	int k,y,maxsuc,maximport;
+	int k,maxsuc,maximport=0;
 	for(k=0;k<5;k++)
     {
             maxsuc=sumaSem(matImportes, maximport, maxsuc, k);
 	}
-	cout<<mostrarSuc(maxsuc); //Falta función que muestre
-
-
+	mostrarSuc(maxsuc); //Falta función que muestre
 }
 
 int sumaSem(float matImportes[5][31],int maximport, int maxsuc, int suc)
 {
 	float sumimport;
-	for(k=0;k<7;k++)
+	for(int k=0;k<7;k++)
 	{
-		sumimport += matimportes[suc][k];
+		sumimport += matImportes[suc][k];
 	};
 	if (sumimport>=maximport) maximport=sumimport;
 	maxsuc=suc;
 return suc;
 }
 
-int puntoC(float matImportes[5][31]);
+int puntoC(float matImportes[5][31],int fila, int columna)
 {
 	int cont=0;
 		int i, j;
 	for (i = 0; i < fila; i++)
 	{
 		for (j = 0; j < columna; j++)
-			if(matimportes[i][j]<12000)
+			if(matImportes[i][j]<12000)
 			{
 				cont++;
 			}
