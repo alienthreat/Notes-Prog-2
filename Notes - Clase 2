@@ -1,0 +1,243 @@
+//CLASE 2 - Programacion II -EJEMPLO 1:
+//VARIABLES SIMPLES/COMPLEJAS Y PUNTEROS
+
+int main (){
+	int a, *pi;
+	a=15;
+	pi=&a;//&=operador de direccion(indica que espacio de la memoria esta ocupado por esa variable)
+	cout<<a<<endl;
+	cout<<*pi<<endl;//*=operador de indireccion(muestra el contenido de la variable, en este caso de la variable pi/solo se puede anteponer el * a una variable del tipo puntero)
+	*pi=7;// si aca escribo pi=7; me va a dar error, ya que para asignar el numero 7 que es un entero, deberia usar una variable del mismo tipo. En este caso pi es una variable del tipo puntero.
+	cout<<a<<endl;
+	return 0;
+}
+
+//EJEMPLO 2:
+int main (){
+	int a, *pi, v[5];
+	pi=v;
+	//si ponemos aca v= pi; no compilaria, ya que no se puede modificar , ya que v como nombre de vector es un puntero constante que contiene la direccion del elemento "0" de ese vector.
+
+//ARITMETICA DE PUNTEROS
+
+//v = &v[0] esto significa que un vector es un puntero constante que contiene ls direccion del elemento 0 de ese vector
+
+//siguiendo la logica matematica de la igualdad, podemos decir que v=&v[0] es igual a decir:
+
+//*v=*&v[0]
+//el asterisco y el ampersan se cancelan:
+//*v=v[0]
+
+//EJEMPLO 3:
+
+int main(){
+	int a, *pi,v[5];
+	a=0;
+	pi=v;
+	v[0]=100;
+	cout<<*v<<endl;
+	cout<<*pi<<endl;
+	cout<<pi[0]<<endl;
+	//en este caso, pi[0] no tiene sentido usarlo, lo que nosotros solemos usar es comunmente el nombre del vector con su respectiva posicion , para este caso v[0].
+	
+	//si aca hacemos a++; suma sin problemas
+	//si aca hacemos pi++; lo que hace es sumar 1 (en bytes) a la variable de tipo puntero , equivalente al tamaño del tipo de datos(en este caso es del tipo entero,por ende suma 4 bytes(que es el tamaño de una variable int). El resultado es = a la proxima direccion de memoria del vector,al menos en este caso.
+	return 0;
+}
+
+//EJERCICIO 1RESOLUCION BY KLOSTER:
+//de nanera normal
+#include <iostream>
+ 
+ using namespace std;
+ 
+void cargar(int *v, int tam){
+	int i;
+	for(i=0;i<tam;i++)
+{
+	cin>>v[i];
+}
+
+
+void mostrar(int *v, int tam){
+	int i;
+	for(i=0;i<tam;i++)
+{
+	cout<<v[i]<<endl;
+}
+
+
+int main(){
+	int v[5];
+	cargar(v,5);
+	mostrar(v,5);
+	
+return 0;
+}
+
+//resuelto con notacion de puntero:
+//reemplazar donde aparezca v[i] con *(v+i)
+
+#include <iostream>
+ 
+ using namespace std;
+ 
+void cargar(int *v, int tam){
+	int i;
+	for(i=0;i<tam;i++)
+{
+	cin>>*(v+i);
+}
+
+
+void mostrar(int *v, int tam){
+	int i;
+	for(i=0;i<tam;i++)
+{
+	cout<<*(v+i)<<endl;//ó tsmbien se puede hacer: cout<<*v++;
+}
+
+
+int main(){
+	int v[5];
+	cargar(v,5);
+	mostrar(v,5);
+	
+return 0;
+}
+
+//ESTRUCTURAS:
+//Puedo crear tipos de datos que engloben varias variables
+
+//resolucion ejercicio 1 de la clase 1:
+
+struct venta{
+	int dia;
+	float importe;    //estos son los campos
+	char sucursal[10];
+};
+
+int main(){
+	struct venta diario, total[30], *pventa;
+	//si yo aca pongo cin>>diario; no compila,xq el programa no entiende en cual de las tres variables quiere que almacenemos el dato. Por ende debemos aclararlo:
+	
+cin>>diario.dia;
+diario.importe=125.14;
+strcpy(diario.sucursal, "TIGRE");	
+	
+//EJERCICIO 2 RESUELTO BY KLOSTER:
+	
+using namespace std;
+
+struct articulo{
+	char codigo[5],nombre[30];
+	float importe;
+	int stock;
+	//aca deberia agregar solamente los campos que hay que cargar, usando lo que aparece al final sobre la carga y muestra de datos, y no modificar muchas lineas de codigo como haria si el ingreso y muestra de datos estuviese en todos lados como en este ejercicio
+};
+//PROTOTIPOS
+void cargarArticulos(struct articulo *vArticulos, int tam);
+void mostrarArticulos(struct articulo *vArticulos, int tam);
+
+void cargarArticulos(struct articulo *vArticulos, int tam)
+{
+	int i;
+	for(i=0;i<tam;i++)
+	{
+		cout<<"INGRESE LOS DATOS"<<endl;
+		cin>>vArticulos[i].codigo;
+		cin>>vArticulos[i].nombre;
+		cin>>vArticulos[i].importe;
+		cin>>vArticulos[i].stock;	
+	}
+}
+
+void mostrarArticulos(struct articulo *vArticulos, int tam)
+{
+	int i;
+	for(i=0;i<tam;i++)
+	{
+		cout<<"MOSTRANDO DATOS:"<<endl;
+		cout<<vArticulos[i].codigo<<endl;
+		cout<<vArticulos[i].nombre;
+		cout<<vArticulos[i].importe;
+		cout<<vArticulos[i].stock;	
+	}
+}
+	
+int main(){
+	struct articulo vArticulos[15];
+	cargarArticulos(vArticulos, 15);
+	mostrarArticulos(vArticulos, 15);
+	return 0;
+}
+	
+//FIN DEL PROGRAMA. Se puede modificar y hacerlo mas eficiente de la siguiente manera. SIEMPRE SE RECOMIENDA QUE EL PROGRAMA TENGA DOS CARACTERISTICAS:
+/*
+UNICIDAD(QUE CADA FUNCION REALICE UNA SOLA TAREA)
+BAJO ACOPLAMIENTO(Que la funcion reciba estrictamente lo que va a usar)
+
+	Por ello,podriamos haber hecho lo siguiente:	*/
+	
+	struct articulo cargarUno(){
+		struct articulo reg;
+		system("cls");
+		cout<<"INGRESE LOS DATOS"<<endl;
+		cin>>reg.codigo;
+		cin>>reg.nombre;
+		cin>>reg.importe;
+		cin>>reg.stock;
+		return reg;
+	}
+	
+void mostrarUno(struct articulo reg){
+	struct articulo reg;
+		system("cls");
+		cout<<"MOSTRANDO DATOS:"<<endl;
+		cout<<vArticulos[i].codigo<<endl;
+		cout<<vArticulos[i].nombre;
+		cout<<vArticulos[i].importe;
+		cout<<vArticulos[i].stock;
+	}
+}
+
+	//LUEGO REEMOLAZAMOS ESTAS FUNCIONES EN LOS FOR DE LAS RESPECTIVAS FUNCIONES:
+	
+	
+	void cargarArticulos(struct articulo *vArticulos, int tam)
+{
+	int i;
+	for(i=0;i<tam;i++)
+	{
+	vArticulos[i]=cargarUno();
+	}
+};
+
+void mostrarArticulos(articulo *vArticulos, int tam){
+	int i;
+	for(i=0;i<tam;i++)
+	{
+	mostrarUno(vArticulos[i]);
+	system("pause");
+	system("cls");
+	}
+			
+//MUY IMPORTANTE: SIEMPRE TRATAR DE SEPARAR LA CARGA DE ARTICULOS
+
+//PARA RESOLVER EL EJERCICIO 3:
+		
+void modificarStock(struct articulo *reg, int cant){
+//	reg.stock+=cant;  esto no se puede hacer porque reg es una direccion, por ende, habria que hacer lonsiguiente:
+
+// (*reg).stock+=cant; pero esta notacion fue reemplazada por el operador "->"(segun lo explicado en aritmetica de punteros)por lo quedaria de la siguiente manera:
+
+  reg->stock+=cant;
+}
+
+	int main(){
+			struct articulo reg;
+		reg CargarUno();
+		modificarStock(&reg, cantidadamodificar);
+		mostrarUno(reg);
+		return 0;
+	}
