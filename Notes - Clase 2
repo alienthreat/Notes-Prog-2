@@ -241,3 +241,101 @@ void modificarStock(struct articulo *reg, int cant){
 		mostrarUno(reg);
 		return 0;
 	}
+	
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//CODIGO FINAL, CON EJERCICIO RESUELTO ??? :
+#ifndef _WIN32
+# define _WIN32
+#endif
+#include <iostream>
+#include <cstdlib>
+#include "CSYSTEM/csystem.h"
+//Ugi's Pizzas
+
+using namespace std;
+
+    struct articulo{
+	char codigo[5],nombre[30];
+	float importe;
+	int stock;
+    };
+
+void cargarArticulos(struct articulo *vArticulos, int tam);
+void mostrarArticulos(struct articulo *vArticulos, int tam);
+void mostrarUno(struct articulo *vArticulos, int tam);
+void modificarStock(struct articulo *reg, int cant);
+struct articulo cargarUno();
+
+int main(){
+	struct articulo vArticulos[15];
+	struct articulo reg;
+	cargarArticulos(vArticulos, 15);
+	mostrarArticulos(vArticulos, 15);
+	cout<<"Ingrese los datos del articulo a modificar:"<<endl;
+	reg = cargarUno();
+	int cant;
+	cant = reg.stock;
+	modificarStock(&reg, cant);
+	mostrarArticulos(vArticulos, 15);
+    return 0;
+}
+
+struct articulo cargarUno(){
+		struct articulo reg;
+		system("cls");
+		cout<<"Ingrese codigo de articulo:"<<endl;
+		cin>>reg.codigo;
+		cout<<"Ingrese nombre de articulo:"<<endl;
+		cin>>reg.nombre;
+		cout<<"Ingrese importe de articulo:"<<endl;
+		cin>>reg.importe;
+		cout<<"Ingrese stock de articulo:"<<endl;
+		cin>>reg.stock;
+		return reg;
+	}
+
+void mostrarUno(struct articulo *vArticulos, int tam){
+		system("cls");
+		cout<<"Codigo:"<<endl;
+		cout<<vArticulos[tam].codigo<<endl;
+		cout<<"Nombre:"<<endl;
+		cout<<vArticulos[tam].nombre<<endl;
+		cout<<"Importe:"<<endl;
+		cout<<vArticulos[tam].importe<<endl;
+		cout<<"Stock:"<<endl;
+		cout<<vArticulos[tam].stock<<endl;
+	}
+
+
+void cargarArticulos(struct articulo *vArticulos, int tam)
+{
+	int i;
+	for(i=0;i<tam;i++)
+	{
+	vArticulos[i]=cargarUno();
+	}
+};
+
+void mostrarArticulos(articulo *vArticulos, int tam){
+	int i;
+	for(i=0;i<tam;i++)
+	{
+	mostrarUno(vArticulos, i);
+	system("pause");
+	system("cls");
+	}
+}
+
+void modificarStock(struct articulo *reg, int cant){
+    reg->stock+=cant;
+}
+
+
+//=============================================================================
+//                            ZED'S DEAD BABY,
+//                               ZED'S DEAD
+//#############################################################################
+
