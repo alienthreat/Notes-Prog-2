@@ -47,3 +47,80 @@ cout<<pal[i][0]<<endl;
 //a)Palabras de hasta 4 letras 
 //b)Palabras de 5 letras 
 //c) Analizar lo que muestra en cada caso
+
+
+//EJERCICIO 1-A)Resolucion:
+using namespace std;
+
+void fun(int(*mat )[5], int filas, int col);
+void cargarMat(int(*mat)[5], int filas, int col);
+void mostrarMat(int(*mat)[5], int filas, int col);
+
+//==============================================================================
+// FUNCION PRINCIPAL - PUNTO DE INICIO DEL PROYECTO
+//------------------------------------------------------------------------------
+int main()
+{
+    int mat[3][5];
+    cargarMat(mat,3, 5);
+    mostrarMat(mat,3, 5);
+    return 0;
+}
+
+void cargarMat((*mat)[5])
+{
+    int i;
+    for(i=0;i<filas;i++){
+for(j=0;j<columnas;j++){
+        cout<<"Ingrese un numero en posicion"<<i<<"  "<<j<<endl;
+    cin>>mat[i][j]; //notacion: *(*(m+i)+j);
+}
+}
+
+void mostrarMat((*mat)[5])
+{
+    int i;
+    for(i=0;i<filas;i++){
+        cout<<endl;
+for(j=0;j<columnas;j++){
+        cout<<mat[i][j]endl; //notacion: *(*(m+i)+j);
+}
+}
+
+
+//EJERCICIO 1 -B) RESOLUCION:
+
+using namespace std;
+
+void fun(int(*mat )[5], int filas, int col);
+void cargarMat(int(*mat)[5], int filas, int col);
+void mostrarMat(int(*mat)[5], int filas, int col);
+
+//==============================================================================
+// FUNCION PRINCIPAL - PUNTO DE INICIO DEL PROYECTO
+//------------------------------------------------------------------------------
+int main()
+{
+    int mat[3][5];
+    cargarMat(mat,3, 5);
+    mostrarMat(mat,3, 5);
+    return 0;
+}
+
+void cargarMat((*mat)[5])
+{
+    int i;
+    for(i=0;i<filas;i++){
+for(j=0;j<columnas*filas;j++)
+        cout<<"Ingrese un numero en posicion"<<i<<"  "<<j<<endl;
+    cin>>*(*mat+j);
+}
+}
+
+void mostrarMat((*mat)[5])
+{
+           int j;
+for(j=0;j<columnas*fila;j++){
+        cout<<mat[0][j]<<"\t"; //falta el salto de linea cada tres para que se vea la matriz mejor esteticamente
+}
+}
