@@ -1,0 +1,49 @@
+int [3][5]
+
+m = &m[0]  //en la memoria cuando yo declaro una matriz, el nombre
+           //de una matriz es un puntero constante que contiene la dirección de la primera fila
+          
+          //Si yo quisiera hacer un salto de fila debería sumar la cantidad de filas a saltar en los corchetes &m[0+1]
+          
+          
+//EJERCICIO: Cargar y mostrar tres palabras en una matriz de carácteres que tenga tres filas y acepte un máximmo de 30 letras. Usar funciones.
+
+using namespace std;
+
+void mostrarPalabras(int cant, char pal[3][31]);
+
+int main(){
+char palabras[3][31]//se agrega una columna más, ya que al final de cada vector dónde se ingresa la palabra, debe ir un '\0'
+char unaSola[31];
+int i;
+for(i=o;i<3;i++)
+{
+cin>>unaSola; //palabras[i]=&palabras[i][0]  
+strcpy(&palabras[i][0], unaSola);//el strcopy utiliza strcpy(lugar dónde se escribirá lo que ingrese, texto a copiar);
+}
+mostrarPalabras(3, palabras);//si yo ingreso **palabras en esta línea de código, me muestra el primer carácter de la primer fila
+                              //si yo ingreso *palabras en esta línea de código, me muestra el contenido del vector en la primer fila
+return 0;
+}
+
+void mostrarPalabras(int cant, char pal[3][31])
+{
+int i;
+for(i=0,i<cant,i++)
+{
+cout<<pal[i][0]<<endl;
+}
+}
+
+//matriz: posiciones contiguas de memoria a las que puedo acceder mediante el uso de corchetes
+
+//EJERCICIOS:
+
+1)Cargar y mostrar una matriz usando funciones y notaciòn de punteros
+
+//2)Cargar y mostrar una matriz utilizando en cada funicòn un solo for. La matriz tiene que ser de eneteros de 3*5
+
+//3)Cargar y mostrar una matriz de char de 3*5 con palabras de acuerdo a lo siguiente: 
+//a)Palabras de hasta 4 letras 
+//b)Palabras de 5 letras 
+//c) Analizar lo que muestra en cada caso
