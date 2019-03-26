@@ -124,3 +124,42 @@ for(j=0;j<columnas*fila;j++){
         cout<<mat[0][j]<<"\t"; //falta el salto de linea cada tres para que se vea la matriz mejor esteticamente
 }
 }
+
+
+//ARCHIVOS -> DATOS
+
+
+
+Artìculo
+
+Algebra relacional - Se crea para como metodo de almacenamiento de informacion
+
+vamos a empezar a pensar nuestros archivos como registros de longuitud fija.
+VENTAJAS: Se pueden representar de forma sencilla.
+Los campos del struct que yo cree le van a dar formato a mi archivo.
+Si cambia uno, cambian todos los registros.
+Cada registro debe tener algo que lo identifique, en el caso de la tablaARTICULO, el còdigo serà lo que no se repita //VER tablaARTICULO DE CLASE 3 EN CUADERNILLO
+Usaremos los archivos a modos de "Tablas".
+
+-ABRIR(SI NO EXISTE, CREAR) -> fopen("ruta y nombre del archivo","modo de apertura")//MODO DE APERTURA: wb: write binary(crea el archivo vacio) | rb: read binary | ab: append binary(agregar, en codeblocks crea el archivo y lo deja listo para agregar las cosas al final del archivo)
+fopen es una funcion que devuelve un dato de tipo puntero, por lo que hay que almacenarlo en una variable de tipo FILE.
+EJEMPLO: 
+FILE *pA;
+pA=fopen("articulo.dat", "wb"); //Si yo comparo pA con una variable llamada "NULL", sabremos si el archivo està creado, el còdigo serìa el siguiente:
+if(pA==NULL){exit(1)}
+struct articulo reg; //si llegamos acà es porque el archivo està creado y pudo cargarlo
+reg=cargarRegistro();
+fwrite(&reg;sizeof reg , 1, pA);
+fclose(pA);
+
+El resto de comandos trabaja sobre lo que contiene el puntero FILE:
+ESCRIBIR(AGREGAR REGISTROS DENTRO DEL ARCHIVO, O MODIFICARLOS) -> fwrite("escribir lo que esta guardado acà";"")
+LEER -> fread("lo que se va a leer en el disco", "lo que se va a leer: tamaño del archivo multiplicada por b"(esto se hace para comprobar que lo que se està trabajando es realmente el tipo de dato que se busca) 
+, b, puntero FILE)
+CERRAR -> fclose("puntero FILE")
+
+para vincular el archivo fisico con , lo que hace C es decir:
+
+fopen("articulo.dat", "wb");
+
+
