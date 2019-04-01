@@ -1,0 +1,225 @@
+Archivos:
+ -Almacenan sólo 1 cosa.
+ -Registro de longuitud fija->Formato determina struct
+ -Cada registro es único(no se repite)
+ -Toda referencia a una entidad externa, debe hacerse por medio de la clave de esa entidad (es decir, voy a identificar
+ todos los datos mediante un conjunto de referencias, o mejor dicho, a través de datos linkeados entre los diferentes registros, por
+ ejemplo: para saber datos de diferentes estructuras sobre un alumno, podemos buscar el legajo del alumno, y buscar ese número de legajo
+ para identificar al alumno en los diferentes registros).
+ 
+ 
+ FILE *p;
+ p=fopen("articulo.dat", "wb"); //<- Con esta línea, creamos (y destruimos) siempre el archivo. En caso de querer crearlo/abrirlo sin destruirlo, usamos el comando "ab".
+ if(p==NULL) return -1;
+ reg=cargarArticulo();
+ fwrite(&reg, sizeof reg,1, p); //sizeof determina el tamaño que tiene una variable, o tipo de dato (si es un tipo de dato va entre parentésis.
+ fclose(p);                     //si es una variable, va sin parentésis)
+ return 0;
+ 
+ 
+ //PARA LEER EL ARCHIVO:
+  FILE *p;
+ p=fopen("articulo.dat", "rb");
+ if(p==NULL) return -1;
+ fread(&reg, sizeof reg,1, p); //fread me pide: fread(una dirección, que sizeof sea un número, que esto sea otro número, y que haya un puntero)
+ fclose(p);                                 
+ mostrarArticulo(reg);         //funcion realizada en Clase 3 o 2.
+ return 0;
+
+ACCIONES:
+
+ALTA: Dar de alta un registro significa crear el archivo.
+BAJA: Existen dos tipos de bajas: BAJA LÓGICA: Se hace que el sistema no la vea, pero continúa existiendo y BAJA FÍSICA: Cuando se elimina completamente.
+MODIFICAR:
+LISTADOS: Archivo que contiene diferentes criterios y permite ordenar de diferentes formas los datos.
+
+
+
+int listado(){
+ FILE *p; articulo reg; int i;
+ p=fopen("articulo.dat", "rb");
+ if(p==NULL) return -1;
+ for(i=0;i<4;i++){
+ fread(&reg, sizeof reg,1, p);   //fread lee dónde está el puntero, luego multiplica sizeof *1, y lo escribe en la variable &reg, y hace que el indicador de posición del puntero FILE esté en la próxima dirección de memoria, correspondiente al segundo registro
+                                  //si todos los parámetros son correctos, fread devuelve el tercer parámetro (1)(este valor se modifica según la cantidad de registros que querramos que lea). Si no pudo leerlo, devuelve 0
+ mostrarArticulo(reg);         //funcion realizada en Clase 3 o 2.  //END OF FILE: EOF
+ }
+ fclose(p);
+ return 0;
+}
+
+la funció nde arriba se puede hacer con un while:
+
+int listado(){
+ FILE *p; articulo reg; int i;
+ p=fopen("articulo.dat", "rb");  //solo hay una conexion entre el puntero p y el archivo fisico articulo.dat. No hay datos de articulo.dat
+ if(p==NULL) return -1;
+
+while( fread(&reg, sizeof reg,1, p)==1){   //con este while puedo hacer listados secuenciales,y filtrados (por ejemplo, si el stock es <100, se muestra)
+ mostrarArticulo(reg);     
+ }
+ fclose(p);
+ return 0;
+}
+ 
+ 
+ 
+PROGRAMA DE KLOSTER: ESTE PROGRAMA SE BASA EN UN PROGRAMA DE LAS CLASES 2 O 3, EL CUAL CONTIENE LAS FUNCIONES 
+mostrarArticulo/CargarUno ó cargarArticulo (hay que modificar los parmateros de las funciones indicadas 
+para que coincidan con los nombres que se les dio a las funciones en este programa:
+
+
+using namespace std;
+
+struct articulo{
+char codigo[5]. nombre[30];
+float importe;
+int stock;
+int tipo;
+
+}
+
+struct articuloAux{struct articulo reg;
+bool activo;}
+
+int main(){
+int opc, resultado;
+while(true){
+system("cls");
+cout<<"Menu de articulos"<<endl;
+cou<<"1Alta"<<endl;
+cout<<"2baja"<<endl;
+cout<<"3modif"<<endl;
+cout<<"4Listado"<<endl;
+cout<<"Exit"<<endl;
+cin>opc;
+switch(opc){
+CASE 1: resultado= altaArticulo();
+if(resultado==-1) //si queremos validar el alta, viendo si un user o lo que sea esté activo, se hace if(reg.activo==true)
+cout<<"error de archivo"<<endl;
+}
+else
+{
+cout<<"archivo creado"<<endl;
+break;
+}
+CASE 2: bajaArticulo();
+break;
+CASE 3:modificacionPuArticulo();
+break;
+CASE 4:resultado= listadoArticulo();
+if(resultado==-1)
+cout<<"no se pudo leer el archivo"<<endl;
+}
+//else { se muestran los registros};
+break;
+break;
+CASE 0: return 0;
+break;
+default:cout<<"opcion incorrecta"<<endl;
+break;
+}
+system("pause");
+ }
+ 
+ /*
+ para validar el archivo y verificar si existe y está activo:
+ int convertirArchivo(){
+ struct articulo reg2;
+struct articuloAux aux;
+  FILE *p, *q;
+ p=fopen("articulo.dat", "rb"); //leemos articulo viejo y escribimos en artitemp el articulo nuevo
+ q=fopen("artitemp.dat", "ab");
+ if(p==NULL || q==NULL){
+ return -1;}
+ else{
+ while(fwrite(&reg,sizeof reg, 1, p)==1)
+ {
+aux.reg=reg;
+aux.activo=true;
+fwrite(&aux, sizeof aux, 1, q);
+ }
+ fclose(p);
+ fclose(q);
+ 
+ ____codigo de mas:
+  p=fopen("articulo.dat", "rb"); //leemos articulo viejo y escribimos en artitemp el articulo nuevo
+ q=fopen("artitemp.dat", "ab");
+ if(p==NULL || q==NULL){
+ return -1;}
+ else{
+ while(fwrite(&aux,sizeof aux, 1, p)==1){
+ aux.reg=reg;
+aux.activo=true;
+ (fread(&reg,sizeof reg, 1, q)==1)
+ }
+ {
+fwrite(&aux, sizeof aux, 1, q);
+ }
+  fclose(p);
+ fclose(q);
+ ___fin codigo de mas
+ return 0;
+ }
+ }
+ 
+
+
+}
+ }
+ */
+ 
+ 
+ int altaArticulo(){
+ 
+ FILE *p;
+ struct articulo reg;
+ p=fopen("artivulo.dat", "ab");
+ if(p==NULL){
+ return -1;}
+ 
+ reg=cargarArticulo();//CargarArticulo es en realidad la funcion cargarUno();
+ fwrite(&reg,sizeof reg, 1, p);
+ fclose(p);
+ return 0;
+ /* para revisar si lo que ingresamos es un usuario activo, por ejemplo:
+ reg.activo=true;
+ return reg
+ 
+ */
+ }
+ 
+ void bajaArticulo(){}
+ 
+ void modificacionPuArticulo(){}
+ 
+ void listadoArticulo(){
+  FILE *p;
+ struct articulo reg;
+ p=fopen("artivulo.dat", "rb");
+ if(p==NULL){
+ return -1;}
+
+ while(fwrite(&reg,sizeof reg, 1, p)==1)
+ {
+ mostrarArticulo(reg);
+ cout<<endl;
+ }
+ fclose(p);
+ return 0;
+ }
+ 
+ 
+ //________________-FIN DE PROGRAMA-:_________________________
+ 
+ BAJA DE REGISTROS:
+ 
+ Para borrar registros hay reglas muy estrictas.
+ Un ejemplo para evitar que un operador, me elimine por error los registros de manera fisica, son niveles de permisos para eliminar registros
+ 
+ 
+ 
+ 
+ 
+ 
+ 
