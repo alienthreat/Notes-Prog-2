@@ -103,13 +103,21 @@ else
 cout<<"archivo creado"<<endl;
 break;
 }
-CASE 2: bajaArticulo();
+CASE 2: resultado=bajaArticulo();
+if(resultado==-1)
+{cout<<"PROBLEMA DE ARCHIVO"<<endl;
+}
 break;
+if (resultado==0){
+cout<<"REGISTRO BORRADO"<<endl;
+break};
+
 CASE 3:modificacionPuArticulo();
 break;
 CASE 4:resultado= listadoArticulo();
 if(resultado==-1)
 cout<<"no se pudo leer el archivo"<<endl;
+break;
 }
 //else { se muestran los registros};
 break;
@@ -189,7 +197,24 @@ fwrite(&aux, sizeof aux, 1, q);
  */
  }
  
- void bajaArticulo(){}
+ void bajaArticulo(){  FILE *p;
+ char codigo[5];
+ structr articulo reg;
+ p=fopen("articulo.dat", "rb");
+ if(p==NULL) return -1;
+ cout<<"iNGRESECODIGO"<<endl;
+ cin>>codigo
+while(fread(&reg,sizeof reg, 1, p)==1){
+if(strcmp(reg.codigo,codigo)==0{
+reg.activo=false;
+fseek(p, -sizeof(articulo), 1);  //me permite buscar la posicion del puntero FILE. El primer parametro es el archivo que quiero reemplazar El segundo parametro es el desplazamiento(cuantos bytes me quiero mover). Y el tercer parametro es desde donde me quiero mover(0: principio de archivo, 1: posicion actual y 2: fin del archivo).
+  fwrite(&reg,sizeof reg, 1, p);
+fclose(p);
+ return 0;}
+ cout<<endl;
+ }
+ fclose(p);
+ return 1;
  
  void modificacionPuArticulo(){}
  
@@ -218,8 +243,46 @@ fwrite(&aux, sizeof aux, 1, q);
  Un ejemplo para evitar que un operador, me elimine por error los registros de manera fisica, son niveles de permisos para eliminar registros
  
  
+ Para realizar la modificación de un registro (sea baja lógica o cualquier otra), se debe:
+ 
+ -Ingresar el valor de registro a borrar(por ejemplo, el codigo)
+ -Chequear si existe ->Función buscar.
+ -Si no existe ->Informar -> FIN.
+ -Si existe: -Leer el registro.
+             -Modificar campo activo(pasarlo a false).
+             -Escribir el registro en la misma posición que ocupaba.
  
  
+ EJERCICIO: MODIFICAR LA FUNCIÓN DE BAJA, AGREGANDO LAS SIGUIENTES FUNCIONES: 1)buscarArticulo(función que recibe un código y devuelve
+ la posición que ese código ocupa en un registro del archivo, sino devuelve -1. 
+ 2)Leer registro: Recibe un valor entero que es una posición y devuelve el registro completo que ocupa esa posición.
+ 3)Escribir registro: Recibe una posición y un registro de articulo y escribe el registro en esa posición. Devuelve verdadero si pudo
+ escribir, y falso si no pudo.
+ 
+ 
+ //int buscarArticulo/char *cod);
+ 
+ //struct articulo leerRegistro(int pos);
+ 
+ //bool escribirRegistro(int pos, struct articulo reg);
+ 
+ 
+ 
+ 
+ int bajaArticulo2(){
+ char codigo[5];
+ cout<<"CODIGO: ";
+ cin>>codigo;
+ int pos=buscarArticulo(codigo);
+ if(pos==-1) return 1;
+ struct articulo reg=leerRegistro(pos);
+ reg.activo=false;
+ if(escribirRegistro(pos, reg)){
+ return 0;
+ }
+ return -1;
+ 
+ }
  
  
  
