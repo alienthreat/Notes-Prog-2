@@ -1,0 +1,276 @@
+/*
+Autor: GAB
+Fecha: 08/04/19
+Comentario: Ejercicios resueltos CLASE 4. Consignas al final de archivo: https://github.com/alienthreat/Notes-Prog-2/blob/master/Notes%20Clase%204
+*/
+
+# include<iostream>
+# include<cstdlib>
+# include<cstdio>
+# include<cstring>
+
+using namespace std;
+
+struct fecha{
+  int dia, mes, anio;
+  };
+
+struct alumno{
+  char legajo[10];
+  char nombre[25];
+  char apellido[30];
+  struct fecha fechaNacimiento;
+  int codigoCarrera;
+  bool activo;// campo que define si el registro está
+  // o no borrado
+};
+
+struct alumno leerRegistroAlumno(int);
+int buscarRegistroAlumno(char *legajo);
+bool grabarRegistroAlumno(struct alumno, int);
+void mostrarRegistroAlumno(struct alumno);
+struct alumno cargarRegistroAlumno();
+struct alumno modifRegistroAlumno(struct alumno &re);
+
+void altaAlumno();
+void bajaLogicaAlumno();
+void modificacionAlumno();
+bool listadoAlumnos();
+void reiniciarArchivo();
+
+int main(){
+  int opc;
+  while(1){
+    system("cls");
+    cout<<"MENU ALUMNOS"<<endl;
+    cout<<"1. ALTA"<<endl;
+    cout<<"2. BAJA "<<endl;
+    cout<<"3. MODIFICACION"<<endl;
+    cout<<"4. LISTADO"<<endl;
+    cout<<"5. REINICIAR ARCHIVO"<<endl;
+    cout<<"6. FIN DEL PROGRAMA"<<endl;
+    cout<<"OPCION: ";
+    cin>>opc;
+    system("cls");
+    switch(opc){
+      case 1:
+            altaAlumno();
+            break;
+      case 2:
+            bajaLogicaAlumno();
+            break;
+      case 3:
+            modificacionAlumno();
+            break;
+      case 4:
+            if(!listadoAlumnos()){
+              cout<<"NO HAY REGISTRO PARA LISTAR"<<endl;
+            }
+                system("cls"); //LIMPIA LA PANTALLA ANTES DE MOSTRAR LOS REGISTROS(cuando se ejecuta el CASE 4, se muestra dos veces el registro por algún motivo)
+                  listadoAlumnos();
+            break;
+        case 5:
+            reiniciarArchivo();
+            break;
+      case 6:
+            return 0;
+            break;
+      default: cout<<"OPCION INCORRECTA"<<endl;
+            break;
+      }
+
+    system("pause");
+  }
+  return 0;
+}
+/////////////////////////////////
+
+void altaAlumno(){
+  struct alumno reg;
+  reg=cargarRegistroAlumno();
+  int pos=buscarRegistroAlumno(reg.legajo);
+  if(pos!=-1){
+    cout<<"EL LEGAJO YA EXISTE"<<endl;
+    return;
+  }
+  if(grabarRegistroAlumno(reg, pos)){
+    cout<<"REGISTRO AGREGADO"<<endl;
+    }
+  else{
+    cout<<"NO SE PUDO AGREGAR EL REGISTRO";
+    }
+  system("pause");
+}
+
+struct alumno cargarRegistroAlumno(){
+  struct alumno reg;
+  system("cls");
+  cout<<"LEGAJO: ";
+  cin>>reg.legajo;
+  cout<<"NOMBRE: ";
+  cin>>reg.nombre;
+  cout<<"APELLIDO: ";
+  cin>>reg.apellido;
+  cout<<"FECHA DE NACIMIENTO: DIA:";
+  cin>>reg.fechaNacimiento.dia;
+    cout<<"FECHA DE NACIMIENTO: MES:";
+  cin>>reg.fechaNacimiento.mes;
+    cout<<"FECHA DE NACIMIENTO: ANIO:";
+  cin>>reg.fechaNacimiento.anio;
+  cout<<"CARRERA: ";
+  cin>>reg.codigoCarrera;
+  reg.activo=true;
+  return reg;
+  }
+
+  void modifRegistroAlumno(struct alumno &reg, int pos){
+      FILE *p;
+    p=fopen("aluJCP.dat","rb+");
+    if(p==NULL){cout<<"ERROR"<<endl;}
+    else{
+    fseek(p, pos*sizeof reg,0);
+  reg=cargarRegistroAlumno();
+    if(grabarRegistroAlumno(reg, pos)){
+    cout<<"REGISTRO MODIFICADO"<<endl;
+    }
+  else{
+    cout<<"NO SE PUDO MODIFICAR EL REGISTRO";
+    }
+  system("pause");
+}
+  };
+
+void mostrarRegistroAlumno(struct alumno reg){
+  if(reg.activo){
+    cout<<"-----------------------------------------"<<endl;
+    cout<<"LEGAJO: ";
+    cout<<reg.legajo<<endl;
+    cout<<"NOMBRE: ";
+    cout<<reg.nombre<<endl;
+    cout<<"APELLIDO: ";
+    cout<<reg.apellido<<endl;
+    cout<<"FECHA DE NACIMIENTO: ";
+    cout<<reg.fechaNacimiento.dia<<"/"<<reg.fechaNacimiento.mes<<"/";
+    cout<<reg.fechaNacimiento.anio<<endl;
+    cout<<"CARRERA: ";
+    cout<<reg.codigoCarrera;
+  }
+}
+
+bool grabarRegistroAlumno(struct alumno reg, int pos){
+  FILE *p;
+  if(pos<0){
+    p=fopen("aluJCP.dat","ab");
+    if(p==NULL){return false;}
+  }
+  else{
+    p=fopen("aluJCP.dat","rb+");
+    if(p==NULL){return false;}
+    fseek(p, pos*sizeof reg,0);
+  }
+  bool grabo=fwrite(&reg, sizeof reg, 1, p);
+  fclose(p);
+  return grabo;
+}
+
+int buscarRegistroAlumno(char *legajo){
+  FILE *p;
+  struct alumno reg;
+  int pos=0;
+  p=fopen("aluJCP.dat","rb");
+  if(p==NULL){return -1;}
+  while(fread(&reg, sizeof reg, 1, p)==1){
+    if(strcmp(reg.legajo,legajo)==0){
+      fclose(p);
+      return pos;
+      }
+    pos++;
+    }
+  fclose(p);
+  return -1;
+}
+
+
+void bajaLogicaAlumno(){
+  char legajo[10];
+  struct alumno reg;
+  int pos;
+  //PEDIR EL LEGAJO DEL ALUMNO A ELIMINAR
+  cout<<"INGRESE EL LEGAJO DEL ALUMNO A DAR DE BAJA: ";
+  cin>>legajo;
+  pos=buscarRegistroAlumno(legajo);
+  if(pos==-1){
+    cout<<"NO EXISTE EL LEGAJO"<<endl;
+    return;
+    }
+  reg=leerRegistroAlumno(pos);
+  reg.activo=false;
+  if(grabarRegistroAlumno(reg,pos)){
+    cout<<"REGISTRO ELIMINADO"<<endl;
+    }
+  else{
+    cout<<"NO SE PUDO ELIMINAR EL REGISTRO"<<endl;
+    }
+  //BUSCAR SI EL LEGAJO EXISTE
+  //LEER EL REGISTRO QUE TIENE EL LEGAJO
+  //CAMBIAR EL VALOR DEL CAMPO ACTIVO
+  //GRABAR REGISTRO EN EL ARCHIVO
+  }
+
+void modificacionAlumno(){
+    char legajo[10];
+  struct alumno reg;
+  int pos;
+  //PEDIR EL LEGAJO DEL ALUMNO A MODIFICAR
+  cout<<"INGRESE EL LEGAJO DEL ALUMNO A MODIFICAR: ";
+  cin>>legajo;
+  pos=buscarRegistroAlumno(legajo);
+  if(pos==-1){
+    cout<<"NO EXISTE EL LEGAJO"<<endl;
+    return;
+    }
+    else
+    {
+ system("cls");
+ cout<<"A CONTINUACION, INGRESE LOS NUEVOS DATOS DEL ALUMNO:"<<endl;
+ system("pause");
+  reg=leerRegistroAlumno(pos);
+  modifRegistroAlumno(reg, pos);
+    }
+   system("pause");
+}
+
+bool listadoAlumnos(){
+  FILE *p;
+  struct alumno reg;
+  p=fopen("aluJCP.dat","rb");
+  if(p==NULL){return false;}
+  while(fread(&reg, sizeof reg, 1, p)==1){
+    mostrarRegistroAlumno(reg);
+    cout<<" "<<endl;
+    }
+  fclose(p);
+  return true;
+}
+
+
+struct alumno leerRegistroAlumno(int pos){
+  FILE *p;
+  struct alumno reg;
+  strcpy(reg.legajo, "nada");
+  p=fopen("aluJCP.dat","rb");
+  if(p==NULL)return reg;
+  fseek(p, sizeof reg*pos, 0);
+  fread(&reg, sizeof reg, 1, p);
+  fclose(p);
+  return reg;
+ }
+
+
+ void reiniciarArchivo(){
+ FILE *p;
+ p=fopen("aluJCP.dat","wb");
+ cout<<"ARCHIVO REINICIADO"<<endl;
+  cout<<"SE HAN ELIMINADO TODOS LOS REGISTROS"<<endl;
+ fclose(p);
+ };
