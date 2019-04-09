@@ -1,0 +1,42 @@
+  Se hará la resolución de lo planteado en la ejercitación:
+  http://frgp.cvg.utn.edu.ar/mod/resource/view.php?id=66746
+  
+REPASO CLASE ANTERIOR:
+
+FILE *p;
+p=fopen("articulo.dat", "rb");  //fopen(ruta y nombre de archivo, tipo de apertura) con el puntero file establezco la coneción con el archivo físico.
+if(p==NULL){return -1};                                //pregunto que pasa si no puede abrirlo
+ fwrite(&reg, sizeof reg, 1, p);              //fwrite(donde se va a escribir, el tamaño del registro a leer, cantidad de registros a leer, se va a escrinir desde dónde el puntero lo indique);
+  fclose(p);                                //cerramos el archivo para poder acceder nuevamente luego
+  
+  ////////////////////////////////////////////////
+  ASIGNACIÓN DINÁMICA DE MEMORIA:
+  
+  Cargar y mostrar un vector de enteros, que tengq una cantidad de elementeos int definida por el user, a partir de l ingreso de datos 
+  
+  int main(){
+  
+  int cant, *v;
+  cout<<"Ingrese cantidad de elementos: "<<endl;
+  cin>>cant;
+ v= (int *)malloc(cant * sizeof(int));               //JAMÁS HACER ESTO-> int v[cant]; malloc(cantidad indicada por user * tamaño del tipo de dato de la cantidad indicada);
+if( v==NULL){
+cout<<"Error de memoria"<<endl;
+return -1;
+}
+cargarV(v, cant);
+mostrarv(v,cant);
+free(v);                                   //Libero el sector de memoria reservado por malloc
+return 0;
+}
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
