@@ -1,0 +1,46 @@
+/*
+int modificacionPuintura(){
+
+FILE *p
+int tipo; 
+struct pintura reg;
+p=fopen("pintura.dat", "rb+");
+if(p==NULL) return -1;
+while(fread(&reg, sizeof reg, 1, p)==1)(
+if(strcmp(reg.tipo, "hdqk")==0)(
+reg.pu*=1.12;
+fseek(p,ziseof(pintura),1);
+fwrite(p,ziseof(pintura),1, p);
+fseek(p,ziseof(pintura),1);
+}
+}
+fclose(p);
+return 0;
+*/
+
+//lee un registro sólo:
+int modificacionPuintura(){
+int i, cantReg;
+cantReg=contarRegistroPintura();
+struct pintura reg;
+if(cantReg==0)(return -1;
+for(i=0;i<cantReg,i++){
+reg=leerRegistrosPintura(i);
+if(strcmp(reg.tipo, "hdqk")==0)(
+reg.pu*=1.12;
+modificarRegistroPintura(reg, i);
+}
+fclose(p);
+return 0;
+
+bool modificarRegistroPintura(strcut pintura reg,int pos)
+{
+FILE *p;
+o=fopen("pintura.dat","rb+");
+if(p==NULL)return false;
+fseek(p,sizeof reg*pos, 0);
+bool escribio = fwrtie(&reg,sizeof reg, 1, p);
+fclose(p);
+return escribio;
+}
+}
