@@ -44,3 +44,64 @@ fclose(p);
 return escribio;
 }
 }
+
+
+
+
+int modificacionPuintura(){
+int i, cantReg;
+bool *v;
+cantReg=contarRegistroPintura();
+V=(bool*)malloc(cantReg*sizeof(bool));
+if(v==NULL)return -1;
+ponerFalso(v);
+leerArchivoyComparar(v,"hdqk");
+modificarPrecio(v);
+free(v);
+}
+fclose(p);
+return 0;
+
+
+void leerArchivoyComparar(bool *v, char tipo[5]){
+FILE *p;
+struct pintura reg;
+int pos=0;
+p=fopen("pintura.dat", "rb");
+if(p==NULL) return -1;
+while(fread(&reg, sizeof reg, 1, p)==1)(
+if(strcmp(reg.tipo, "hdqk")==0)(
+v[pos]=true;
+}
+pos++;
+}
+fclose(p);
+}
+
+
+void modificarPrecio(bool *v, int cantReg){
+FILE *p;
+struct pintura reg;
+int i=0;
+p=fopen("pintura.dat", "rb+");
+if(p==NULL) return -1;
+for(i=0;i<cantReg;i++){
+if(v[i])==true){
+fseek(p,ziseof(struct pintura)*i,0);
+fread(&reg ,ziseof reg,1, p);
+reg.pu*=1.12;
+fseek(p,ziseof(struct pintura)*i,0);
+fwrite(p,ziseof(pintura),1, p);
+}
+}
+fclose(p);
+return 0;
+}
+
+//chequeo, son ?, (si la cadena que envío es igual, 
+
+
+
+
+
+
