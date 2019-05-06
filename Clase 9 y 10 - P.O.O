@@ -1,0 +1,344 @@
+NUEVO TEMA:
+
+SEGUNDA PARTE DE LA MATERIA:
+
+P.O.O.(ò OOP):
+PROGRAMACIÒN ORIENTADA A OBJETOS:
+
+Surge como superacion a prog. estructurada.
+Los diferentes objetos tienen ATRIBUTOS Y PROPIEDADES.
+    -Los objetos suelen tener propiedades en comùn que comparte con otros, y nuestro sistema los trata de forma especial
+Los objetos tienen un conjunto de COMPORTAMIENTOS.
+Entre los OBJETOS existen INTERACCIONES.
+
+animacion: perro aparece, hace 4 pasos,gira 90º, da la patita y desaparece:
+
+int main(){
+
+perrito obj;  //tipo variable;
+
+obj.Aparecer(100, 50);  //obj.aparecer(eje X, eje Y);
+obj.caminar(4, DERECHA);
+obj.Girar(90);
+obj.DarLaPatita(4);
+obj.Ocultar();
+return 0;
+}
+
+EJERCICIO: HACER UNA ANIMACIÒN QUE TENGA DOS PERRITOS: UNO QUE APAREZCA EN LA IZQ DE LA PANTALLA, COORDENADA 100, 50; Y OTRO, QUE APAREZCA A LA
+DERECHA DE LA PANTALLA, COORDENADA 500, 50;Y QUE CAMINEN HASTA ENCONTRARSE. AL ENCONTRARSE DEBEN DAR LA PATITA POR 3 SEGUNDOS, Y OCULTARSE.
+NOTA: HAY UNA FUNCION DEL PERRITO, QUE SE LLAMA PosicionX() QUE DEVUELVE EL VALOR DE LA COORDENADA X, POR DONDE CAMINA EL PERRITO.
+
+int main(){
+perrito obj, obj1;
+obj.Aparecer(100,50); obj1.Aparecer(500,50);
+while(obj.PosicionX()!=obj1.PosicionX()){
+obj.Caminar(1;DERECHA); obj1.Caminar(1;IZQUIERDA);
+}
+obj.Girar(90); obj1.Girar(-90);
+obj.DarLaPatita(3); obj1.DarLaPatita(3);
+obj.Ocultar();obj1.Ocultar();
+return 0;
+}
+
+DEFINICIONES:
+OBJETO: UN OBJETO ES UNA VARIABLE DE UNA CLASE. SUELE DECIRSE QUE ES UNA INSTANCIA DE UNA CLASE. CADA OBJETO ES UNICO, TIENE UN NOMBRE QUE LO IDENTIFICA, Y TIENE UN ESTADO, DADO POR EL VALOR DE SUS PROPIEDADES EN UN MOMENTO.
+
+CLASE: UNA CLASE ES UN MOLDE O MATRIZ DONDE SE DEFINEN LAS PROPIEDADES Y EL COMPORTAMIENTO QUE TENDRÀN LOS OBJETOS DE ESA CLASE(EL CUADRO DE ABAJO. POR EJEMPLO:
+
+------------------------------------
+-           PERRITO                -   CLASE
+------------------------------------
+-   RAZA                           -   
+-   SEXO                           - 
+-   COLOR                          - 
+-   ALTURA                         - SE DEFINEN LAS PROPIEDADES (PROPIEDADES = VARIABLES DE LA CLASE, POR LO GENERAL SON COSAS QUE TIENEN VALORES);
+-   ANCHO                          - 
+-                                  -
+------------------------------------
+-                                  - 
+-  APARECER                        -
+-  OCULTAR                         - SE DEFINE EL COMPORTAMIENTO (COMPORTAMIENTO = FUNCIONES DE LA CLASE);
+-  CAMINAR                         -
+-  DAR LA PATITA                   -
+------------------------------------
+
+EN NUESTROS PROGRAMAS A PARTIR DE AHORA VAMOS A TENER DOS TIPOS DE FUNCIONES:
+
+    -MÈTODOS: SON LAS FUNCIONES DECLARADAS DENTRO DE LAS CLASES, SÒLO PUEDEN SER UTILIZADAS POR LOS OBJETOS DENTRO DE ESAS CLASES.
+    -GLOBALES: SON LAS FUNCIONES QUE NO PERTENECEN A NINGUNA CLASE.
+    
+    
+EJEMPLO DE CREACIÒN DE CLASE:
+
+using namespace std;
+
+
+//DEFINICION DE UNA CLASE:
+//NOTA: LOS OBJETOS TIENEN PRIVACIDAD.
+//TODAS LAS PROPIEDADES DE LA CLASE VAN A ESTAR EN LA PARTE PRIVADA, Y PARA ACCEDER A LA PARTE PRIVADA, VAMOS A HACERLO MEDIANTE LOS METODOS DEFINIDOS EN LA PARTE PUBLICA(SOLO VA A SER ACCESIBLE DESDE ADENTRO DE LA CLASE. ESTO SE LLAMA ENCAPSULAMIENTO)
+class Alumno{
+private:        //PROPIEDADES, DETERMINA EL ENCAPSULAMIENTO
+char nombre[30];
+char apellido[30];
+int legajo, edad, codigoCarrera;
+public:         //DEFINIMOS LAS FUNCIONES(METÒDOS) QUE NOS PERMITIRÀN MODIFICAR LAS PROPIEDADES DE LOS OBJETOS.
+//PROTOTIPADO DENTRO DE LA CLASE, Y DESARROLLO DE LOS MÈTODOS QUE VAN A UTILIZAR LAS PROPIEDADES DE LA CLASE:
+void Cargar(){};
+void Mostrar(){};
+};
+
+DESARROLLO DE LOS MÈTODOS, FUERA DE LA CLASE:
+
+void Alumno::Mostrar(){ //El mètodo Mostrar(), sòlo puede ser resuelta dentro de la clase Alumno; indicado mediante el operador ::
+cout<<"Nombre: "<<endl;
+cout<<nombre;
+};
+
+/*
+LAS CLASES SE DEFINEN SIMILAR A UN STRUCT:
+struct Alumno{
+char nombre[30];
+char apellido[30];
+int legajo, edad, codigoCarrera;
+};
+*/
+
+int main(){
+
+
+
+return 0;
+}
+    
+
+////////////////////////////////////
+//////////////////////////////////
+CLASE 10:
+
+CLASE -"MOLDE": -Variables(propiedades).
+                -Funciones(mètodos).
+
+OBJETOS: Variable ò instancia CLASE.
+
+class Alumno{
+  private:
+  int legajo;
+  char nombre[30];
+  char apellido[30];
+  int codigoCarrera;
+  public:
+  //conviene sòlo prototipar acà adentro, y desarrollar el mètodo fuera(resulta màs pràctico, al momento de leer el còdigo):
+  void Cargar();
+  void Mostrar(){
+    cout<<nombre<<" "<<apellido;
+    };
+};
+
+//si la funciòn està declarada fuera de la clase alumno, debe indicarse que pertenece a ella, con el operador ::  :
+void Alumno::Cargar(){
+cin>>legajo;
+cin>>nombre;
+cin>>apellido;
+cin>>codigoCarrera;
+};
+
+void Alumno::Mostrar(){
+cout<<legajo<<endl;
+cout<<nombre<<endl;
+cout<<apellido<<endl;
+cout<<codigoCarrera<<endl;
+};
+
+
+int main(){
+
+Alumno X;
+Alumno vobj[15], m[3][3]; //el objeto no es la matriz ni el vector(esos son contenedores); el objeto es c/ posiciòn del vector;
+Alumno *pobj;
+//x.legajo=1334; //esto no se puede (para poder modificar una propiedad, debemos hacerlo con una funciòn definida en la parte pùblica)
+x.Cargar();
+}
+
+
+//EJERCICIO:
+
+//HACER UN PROGRAMA PARA CARGAR Y MOSTRAR UN VECTOR DE ALUMNOS DE 3 COMPONENTES; USAR FUNCIONES;
+
+//RESOLUCIÒN EJERCICIO:
+
+//DECLARACIÒN DE LA CLASE:
+
+class Alumno{
+  private:
+  //DECLARACIÒN DE PROPIEDADES DEL OBJETO:
+  int legajo;
+  char nombre[30];
+  char apellido[30];
+  int codigoCarrera;
+  public:
+  //PROTOTIPADO DE MÈTODOS:
+  void Cargar();
+  void Mostrar();
+    };
+};
+
+//DESARROLLO DE LOS MÈTODOS;
+
+void Alumno::Cargar(){
+cin>>legajo;
+cin>>nombre;
+cin>>apellido;
+cin>>codigoCarrera;
+};
+
+void Alumno::Mostrar(){
+cout<<legajo<<endl;
+cout<<nombre<<endl;
+cout<<apellido<<endl;
+cout<<codigoCarrera<<endl;
+};
+
+int main(){
+
+
+Alumno v[3];
+CargarObjetos(v, 3);
+MostrarObjetos(v, 3);
+return 0;
+}
+//prototipado de la funciòn p/cargar y mostrar el vector de objetos:
+
+void CargarObjetos(Alumno *v, int tam);
+void MostrarObjetos(Alumno *v, int tam);
+
+//Desarrollo de las funciones:
+
+void CargarObjetos(Alumno *v, int tam){
+int i=0;
+  while(i!=tam){
+  v[i]=Alumno::Cargar(); //<-ASÌ O ASÌ?->  v[i].Cargar(); //rta: SE HACE ASÌ: v[i].Cargar();
+  i++;
+  }
+}
+
+void MostrarObjetos(Alumno *v, int tam){
+int i=0;
+  while(i!=tam){
+  v[i]=Alumno::Mostrar(); //<-ASÌ O ASÌ?->  v[i].Mostrar(); //rta: SE HACE ASÌ: v[i].Mostrar();
+  i++;  
+  };
+};
+
+//FIN DE RESOLUCIÒN
+
+//CODIGO DE EJERCICIO RECICLADO PARA SUMAR LOS CONCEPTOS DE "SET Y GET":
+
+
+LOS MÈTODOS QUE SE UTILIZAN PARA PROTEGER EL VALOR DE LAS PROPIEDADES SON CONOCIDOS CÒMO "SET". Y LOS MÈTODOS
+QUE PERMITEN AL MUNDO EXTERNO CONOCER EL VALOR DE LAS PROPIEDADES, SON LOS MÈTODOS "GET".
+
+
+//DECLARACIÒN DE LA CLASE:
+
+class Alumno{
+  private:
+  //DECLARACIÒN DE PROPIEDADES DEL OBJETO:
+  int legajo;
+  char nombre[30];
+  char apellido[30];
+  int edad;
+  public:
+  //PROTOTIPADO DE MÈTODOS:
+  void Cargar();
+  void Mostrar();
+    };
+};
+
+//DESARROLLO DE LOS MÈTODOS;
+
+void Alumno::Cargar(){
+cin>>legajo;
+cin>>nombre;
+cin>>apellido;
+cin>>codigoCarrera;
+};
+
+void Alumno::Mostrar(){
+//MÈTODOS PARA QUE EL MUNDO SEPA EL VALOR DE LAS PROPIEDADES:
+char *getNombre(){return nombre;}
+char *getApellido(){return apellido;}
+int getLegajo(){return legajo;}
+int getEdad(){return edad;}
+//MÈTODOS PARA QUE EL MUNDO PUEDA ESCRIBIR EN LAS PROPIEDADES:
+char setNombre(char *n){strcpy(nombre, n);}
+char setApellido(char *ape){strcpy(apellido, ape);}
+int setLegajo(int l){legajo=l}
+int setEdad(int e){edad=e}
+cout<<legajo<<endl;
+cout<<nombre<<endl;
+cout<<apellido<<endl;
+cout<<codigoCarrera<<endl;
+};
+
+int main(){
+
+
+Alumno v[3];
+CargarObjetos(v, 3);
+MostrarObjetos(v, 3);
+return 0;
+}
+//prototipado de la funciòn p/cargar y mostrar el vector de objetos:
+
+void CargarObjetos(Alumno *v, int tam);
+void MostrarObjetos(Alumno *v, int tam);
+
+//Desarrollo de las funciones:
+
+void CargarObjetos(Alumno *v, int tam){
+int i=0;
+  while(i!=tam){
+  v[i].getNombre();
+  v[i].getApellido();
+  v[i].Legajo();
+  i++;
+  }
+}
+
+void MostrarObjetos(Alumno *v, int tam){
+int i=0;
+  while(i!=tam){
+  v[i].Mostrar();
+  i++;  
+  };
+};
+
+//HACER UN PROGRAMA PARA CARGAR UN VECTOR DE ALUMNOS DE 5, Y A CONTINUACIÒN UN MENÙ 
+CON LAS SIGUIENTES OPCIONES:
+1)- BUSCAR ALUMNO POR LEGAJO;
+2)- BUSCAR ALUMNO POR NOMBRE;
+3)- SALIR;
+EN AMBOS CASOS, EL PROGRAMA DEBE MOSTRAR TODOS LOS DATOS DEL (ALUMNO SI EXISTEN), CASO CONTRARIO
+INFORMAR "NO EXISTE".
+
+
+//RESOLUCIÒN EJERCICIO SUBIDA AL AULA VIRTUAL
+
+//CONSTRUCTORES:
+
+SI NO SE HACE EL CONSTRUCTOR, LA CLASE LO CARGA CON BASURA:
+
+EL CONSTRUCTOR VA DEBAJO DEL "public:"
+
+EJEMPLO DEL CONSTRUCTOR ALUMNO:
+Alumno(int e, int l); //ESTO ASIGNA e A edad ; Y ASIGNA l A LEGAJO
+strcpy(nombre, "nada");
+edad = e; legajo = l;  //ASIGNO ESTOS VALORES A edad y legajo;
+
+TIENE EL MISMO NOMBRE QUE LA CLASE, PUEDE O NO RECIBIR PARÀMETROS, Y SE EJECUTA DE MANERA AUTOMÀTICA
+AL MOMENTO DE LA INSTANCIACIÒN(DECLARACIÒN) DEL OBJETO, Y NO DEVUELVE NADA(NI SIQUIERA VOID).
+
+
+
+
