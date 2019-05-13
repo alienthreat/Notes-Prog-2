@@ -2,7 +2,7 @@ P.O.O:
 
 Encapsulamiento: Protege las propiedades de la manipulaciòn por parte del exterior.
 
-Constructores: Mètodos que tienen el mismo nombre que la clase. No devuelve nada (ni siquiera un void). PUede o no tener paràmetros.
+Constructores: Mètodos que tienen el mismo nombre que la clase. No devuelve nada (ni siquiera un void). Puede o no tener paràmetros.
 Se ejecuta cuando se declara al objeto. SI no se especìfica el constructor, las propiedades se cargan con basura.
 
 En c++ se pueden tener varias funciones con el mismo nombre. A esto se le llama SOBRECARGA DE FUNCIONES. Para definir cuàl serà lafunciòn que se utilice,
@@ -12,8 +12,75 @@ VALORES POR OMISIÒN (ò PARÀMETROS POR OMISIÒN). Por ej: Si yo no defino un t
 (esto significa, que los constructores, o mètodos, o funciones que tengan el mismo nombre, pueden fusionarse).
 
 EJERCICIO:
-HACER UNA CLASE DE NOMBRE ARTICULO, CON LAS PROPIEDADES codigo, nombre, importe, stock y tipo; UN MÈTODO QUE SE LLAME "CARGAR", PASA ASIGNARLE NOMBRE
-A LAS PROPIEDADES, UN METODO QUE SE LLAME "MOSTRAR", SETS Y GETS PARA CADA PROPIEDAD - CONSTRUCTOR CON VALORES POR OMISIOǸ.
+HACER UNA CLASE DE NOMBRE ARTICULO, CON LAS PROPIEDADES codigo, nombre, importe, stock y tipo; UN MÈTODO QUE SE LLAME "CARGAR",
+PARA ASIGNARLE NOMBRE A LAS PROPIEDADES, UN METODO QUE SE LLAME "MOSTRAR", SETS Y GETS PARA CADA PROPIEDAD - 
+CONSTRUCTOR CON VALORES POR OMISIOǸ.
 
 
 
+
+class Articulo{
+  private:
+  //DECLARACIÒN DE PROPIEDADES DEL OBJETO:
+  int codigo;
+  char nombre[30];
+  float importe;
+  int stock;
+  int tipo;
+  public:
+  //PROTOTIPADO DE MÈTODOS:
+  void Cargar();
+  void Mostrar();
+    };
+};
+
+//DESARROLLO DE LOS MÈTODOS;
+
+void Articulo::Cargar(){
+cin>>codigo;
+};
+
+void Articulo::Mostrar(){
+//MÈTODOS PARA QUE EL MUNDO SEPA EL VALOR DE LAS PROPIEDADES:
+int getCodigo(){return codigo;}
+char *getNombre(){return nombre;}
+float getImporte(){return importe;}
+int getStock(){return stock;}
+int getTipo(){return tipo;}
+//MÈTODOS PARA QUE EL MUNDO PUEDA ESCRIBIR EN LAS PROPIEDADES:
+char setNombre(char *n){strcpy(nombre, n);}
+int setCodigo(int l){codigo=l}
+float setImporte(float e){importe=e}
+cout<<codigo<<endl;
+cout<<nombre<<endl;
+cout<<importe<<endl;
+cout<<tipo<<endl;
+};
+
+int main(){
+
+
+CargarObjetos(v, 3);
+MostrarObjetos(v, 3);
+return 0;
+}
+//prototipado de la funciòn p/cargar y mostrar el vector de objetos:
+
+void CargarObjetos(Articulo , int tam);
+void MostrarObjetos(Articulo *v, int tam);
+
+//Desarrollo de las funciones:
+
+void CargarObjetos(Alumno *v, int tam){
+  v[i].getNombre();
+  v[i].getApellido();
+  v[i].Legajo();
+}
+
+void MostrarObjetos(Alumno *v, int tam){
+int i=0;
+  while(i!=tam){
+  v[i].Mostrar();
+  i++;  
+  };
+};
