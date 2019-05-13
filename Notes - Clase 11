@@ -1,0 +1,19 @@
+P.O.O:
+
+Encapsulamiento: Protege las propiedades de la manipulaciòn por parte del exterior.
+
+Constructores: Mètodos que tienen el mismo nombre que la clase. No devuelve nada (ni siquiera un void). PUede o no tener paràmetros.
+Se ejecuta cuando se declara al objeto. SI no se especìfica el constructor, las propiedades se cargan con basura.
+
+En c++ se pueden tener varias funciones con el mismo nombre. A esto se le llama SOBRECARGA DE FUNCIONES. Para definir cuàl serà lafunciòn que se utilice,
+se harà mediante los diferentes paràmetros que tenga el constructor.
+
+VALORES POR OMISIÒN (ò PARÀMETROS POR OMISIÒN). Por ej: Si yo no defino un tamaño, puede cargarse con valores preestablecidos por defecto.
+(esto significa, que los constructores, o mètodos, o funciones que tengan el mismo nombre, pueden fusionarse).
+
+EJERCICIO:
+HACER UNA CLASE DE NOMBRE ARTICULO, CON LAS PROPIEDADES codigo, nombre, importe, stock y tipo; UN MÈTODO QUE SE LLAME "CARGAR", PASA ASIGNARLE NOMBRE
+A LAS PROPIEDADES, UN METODO QUE SE LLAME "MOSTRAR", SETS Y GETS PARA CADA PROPIEDAD - CONSTRUCTOR CON VALORES POR OMISIOǸ.
+
+
+
